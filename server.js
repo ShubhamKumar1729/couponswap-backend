@@ -19,18 +19,12 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-
-// ✅ CORS setup: allow localhost (dev) and your Vercel frontend (production)
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // local frontend
-      "https://couponswapf-esg2cpmml-shubham-kumars-projects-6427e609.vercel.app", // deployed frontend
-    ],
+    origin: process.env.CLIENT_URL?.split(",") || "*",
     credentials: true,
   })
 );
-
 app.use(morgan("dev"));
 
 // MongoDB connection
